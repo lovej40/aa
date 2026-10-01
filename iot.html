@@ -73,6 +73,7 @@
   .section-head{max-width:680px;margin-bottom:26px;}
   .section-head h2{font-size:1.3rem;margin:10px 0 8px;}
   .section-head p{color:var(--text-dim);font-size:0.9rem;}
+  .section-head a{color:var(--signal);}
 
   .tier-table{width:100%;border-collapse:collapse;font-size:0.86rem;}
   .tier-table th{text-align:left;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-faint);padding:10px 14px;border-bottom:1px solid var(--border);}
@@ -148,6 +149,36 @@
   .disclaimer-bar .icon{color:var(--warn);margin-top:2px;flex-shrink:0;}
   .disclaimer-bar b{color:var(--text);}
 
+  /* Greenlink auto-check guide */
+  .step-list{counter-reset:step;display:flex;flex-direction:column;gap:12px;max-width:72ch;margin-bottom:28px;}
+  .step-item{display:flex;gap:16px;padding:16px 18px;border:1px solid var(--border);background:var(--bg-panel);border-radius:var(--radius-md);box-shadow:var(--shadow-card);counter-increment:step;}
+  .step-item .sn{font-family:var(--font-mono);font-weight:700;font-size:0.9rem;color:var(--signal);flex-shrink:0;}
+  .step-item .sn::before{content:"0"counter(step);}
+  .step-item h4{font-size:0.95rem;margin-bottom:5px;}
+  .step-item p{font-size:0.86rem;color:var(--text-dim);margin:0;}
+  .step-item a{color:var(--signal);}
+
+  .status-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:28px;}
+  .legend-item{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.85rem;color:var(--text-dim);background:var(--bg-panel);}
+  .legend-item .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .legend-item.ok .dot{background:var(--signal);box-shadow:0 0 6px 1px var(--signal);}
+  .legend-item.check .dot{background:var(--warn);box-shadow:0 0 6px 1px var(--warn);}
+  .legend-item.crit .dot{background:var(--crit);box-shadow:0 0 6px 1px var(--crit);}
+
+  .msg-template{border:1px solid var(--border);background:var(--bg-raised);border-radius:var(--radius-md);padding:18px 20px;max-width:72ch;margin-bottom:28px;}
+  .msg-template h4{font-size:0.72rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.06em;font-family:var(--font-mono);margin-bottom:10px;}
+  .msg-box{background:var(--bg-panel);border:1px dashed var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-size:0.86rem;color:var(--text);line-height:1.7;margin-bottom:10px;}
+  .hint{font-size:0.78rem;color:var(--text-faint);}
+
+  .daily-check{border:1px solid var(--signal-dim);background:var(--signal-soft);border-radius:var(--radius-md);padding:16px 20px;max-width:72ch;}
+  .daily-check label{display:flex;align-items:center;gap:10px;font-size:0.92rem;font-weight:600;color:var(--text);cursor:pointer;}
+  .daily-check input[type=checkbox]{width:18px;height:18px;accent-color:var(--signal);cursor:pointer;flex-shrink:0;}
+  .daily-check .hint{margin-top:8px;margin-left:28px;}
+
+  .ref-links{display:flex;gap:10px;flex-wrap:wrap;}
+  .ref-link{display:inline-flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--signal-dim);background:var(--bg-raised);border:1px solid var(--border);border-radius:100px;padding:9px 16px;text-decoration:none;transition:border-color .2s,color .2s;}
+  .ref-link:hover{border-color:var(--signal);color:var(--signal);}
+
   footer{padding:28px 0;}
   .footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.78rem;color:var(--text-faint);}
 
@@ -160,7 +191,7 @@
   @media (prefers-reduced-motion:reduce){.live-pill .d{animation:none;}}
 
   @media (max-width:860px){
-    .stat-row{grid-template-columns:1fr 1fr;}
+    .stat-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
     .wrap{padding:0 18px;}
   }
 </style>
@@ -172,8 +203,8 @@
       <span>IoT 관리 콘솔<small>EQUIPMENT &amp; MAINTENANCE · 사업자 지원금 레이더 6~8단계</small></span>
     </div>
     <div class="nav-actions">
-      <a class="btn btn-ghost btn-small" href="guidebook.html" target="_blank" rel="noopener">지원금 가이드북 ↗</a>
-      <a class="btn btn-ghost btn-small" href="scanner.html" target="_blank" rel="noopener">
+      <a class="btn btn-ghost btn-small" href="https://claude.ai/code/artifact/1cf84b7a-f3ff-47cc-b18f-b7951d941132" target="_blank" rel="noopener">지원금 가이드북 ↗</a>
+      <a class="btn btn-ghost btn-small" href="https://claude.ai/code/artifact/a2f25453-2f02-4a7c-9209-1a1fb3b286a9" target="_blank" rel="noopener">
         <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
         지원금 스캐너로
       </a>
@@ -245,6 +276,66 @@
 <section>
   <div class="wrap">
     <div class="section-head">
+      <span class="eyebrow">GREENLINK · 대기배출시설 자동안내</span>
+      <h2>도장부스 등 IoT 점검내역 자동안내 설정</h2>
+      <p>도장부스 등 소규모 대기배출시설에 설치된 IoT 측정기기는 <a href="https://www.greenlink.or.kr" target="_blank" rel="noopener">그린링크(소규모 대기배출시설 관리시스템)</a>에서 실시간 수신상태를 확인하고, 이상 발생 시 담당자 카카오톡으로 자동 안내받을 수 있습니다. 아래 순서대로 한 번만 설정해두면 됩니다.</p>
+    </div>
+
+    <div class="step-list">
+      <div class="step-item"><span class="sn"></span><div><h4>그린링크 로그인 페이지 접속</h4><p><a href="https://www.greenlink.or.kr" target="_blank" rel="noopener">www.greenlink.or.kr</a>(소규모 대기배출시설 관리시스템) 링크를 클릭하면 로그인 페이지로 이동합니다.</p></div></div>
+      <div class="step-item"><span class="sn"></span><div><h4>회원가입 및 담당자·제조사 연락처 등록</h4><p>회원가입 후 부여받은 ID·PW로 로그인하고, <b>IoT 담당자 휴대폰번호</b>와 <b>IoT 설치 제조사 전화번호(연락처)</b>를 입력해두세요. 이상 발생 시 등록된 담당자 카카오톡으로 점검내역이 자동 발송됩니다.</p></div></div>
+      <div class="step-item"><span class="sn"></span><div><h4>실시간수신 자료조회 확인</h4><p>로그인 후 <b>"실시간수신 자료조회"</b> 화면을 클릭하면 30분 단위 수신 현황이 색상으로 표시됩니다.</p></div></div>
+      <div class="step-item"><span class="sn"></span><div><h4>색상 점등 시 제조사 연락</h4><p>아래 상태표에서 정상 외의 색상이 켜지면, 등록해둔 IoT 설치 제조사에 즉시 연락해 점검·수리를 요청하세요.</p></div></div>
+    </div>
+
+    <div class="status-legend">
+      <div class="legend-item ok"><span class="dot"></span>정상 — 별도 조치 불필요</div>
+      <div class="legend-item check"><span class="dot"></span>미수신 — 제조사 연락 필요</div>
+      <div class="legend-item check"><span class="dot"></span>점검중 — 제조사 연락 필요</div>
+      <div class="legend-item crit"><span class="dot"></span>전원단절 — 즉시 제조사 연락</div>
+      <div class="legend-item crit"><span class="dot"></span>통신불량 — 즉시 제조사 연락</div>
+      <div class="legend-item crit"><span class="dot"></span>비정상 — 즉시 제조사 연락</div>
+    </div>
+
+    <div class="msg-template">
+      <h4>자동 발송되는 카카오톡 알림 예시 (미수신 상태일 때)</h4>
+      <p class="msg-box">[IoT 미수신 안내]<br>IoT제작사: (2단계에서 등록한 제조사 전화번호·연락처)<br>IoT 실시간 수신자료 조회 결과 IoT 미수신 상태입니다.<br>즉시 IoT를 설치한 업체로 연락하여 수리 또는 점검 조치하시기 바랍니다.</p>
+      <span class="hint">※ 2단계에서 담당자·제조사 연락처를 등록해두면 그린링크 시스템이 이상 발생 시 위와 같은 형식으로 자동 발송합니다. 다른 상태(점검중·전원단절·통신불량·비정상)도 같은 방식으로 안내됩니다.</span>
+    </div>
+
+    <div class="daily-check">
+      <label><input type="checkbox" id="dailyCheckBox"> 오늘(<span id="todayDate"></span>) 실시간수신 자료조회 확인 완료</label>
+      <p class="hint">그린링크는 로그인 여부와 무관하게 하루 24시간 자동으로 점검·알림을 반복합니다. 담당자는 하루 1회 이 화면을 직접 확인하는 습관을 들이는 것을 권장합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">SELF-CHECK GUIDE</span>
+      <h2>IoT 자가점검 방법</h2>
+      <p>IoT 장비가 갑자기 안 되거나 그린링크 미수신 알림을 받았다고 바로 A/S부터 부를 필요는 없습니다. 실제 출장 사례를 보면 전원·케이블 문제처럼 사업장에서 바로 해결되는 경우가 많습니다. 아래 순서대로 먼저 확인해보세요.</p>
+    </div>
+
+    <div class="step-list">
+      <div class="step-item"><span class="sn"></span><div><h4>전원 껐다가 다시 켜기</h4><p>가장 먼저 장비(보드)와 PC의 전원을 껐다가 다시 켜보세요. 단순 접촉·일시 오류는 이 방법만으로 대부분 해결됩니다.</p></div></div>
+      <div class="step-item"><span class="sn"></span><div><h4>전원이 아예 안 들어올 때 — 메인 전원 리셋</h4><p>①차단기를 내린다 → ②메인 전원 콘센트를 뺀다 → ③10초 정도 대기 → ④다시 콘센트를 꽂는다 → ⑤차단기를 올린다. 순서대로 진행하면 전원이 리셋됩니다.</p></div></div>
+      <div class="step-item"><span class="sn"></span><div><h4>PC가 자동으로 안 켜질 때</h4><p>전원이 들어왔는데도 PC가 자동으로 켜지지 않으면, PC 하단의 전원 버튼을 꾹 눌러 직접 켜주세요.</p></div></div>
+      <div class="step-item"><span class="sn"></span><div><h4>그래도 안 켜질 때 — 케이블 재점검</h4><p>PC 전원선을 분리했다가 다시 연결하고, 연결된 모든 케이블을 양쪽 다 뽑았다가 끝까지 제대로 꽂아주세요. "대충 꽂기"가 원인인 경우가 많습니다.</p></div></div>
+    </div>
+
+    <div class="msg-template">
+      <h4>그린링크 미수신 알림 카카오톡을 받았다면</h4>
+      <p class="msg-box">미수신 알림은 이미 데이터 전송이 안 되고 있다는 뜻입니다. 바로 A/S를 부르기보다 위 1~4단계 점검을 먼저 해보시는 것이 훨씬 빠르고 효율적입니다.</p>
+      <span class="hint">※ 위 단계를 모두 진행했는데도 PC가 켜지지 않거나 장비가 정상 작동하지 않으면, 그때는 장비 자체 이상일 가능성이 높습니다 — IoT를 설치한 업체에 연락해 점검·A/S를 받으시기 바랍니다.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
       <span class="eyebrow">ALERTS</span>
       <h2>최근 알림</h2>
       <p>이상징후·점검시기가 발생하면 여기에 실시간으로 쌓입니다.</p>
@@ -271,7 +362,7 @@
     </div>
     <div class="disclaimer-bar">
       <svg class="icon" viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><line x1="12" y1="9" x2="12" y2="14"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg>
-      <span><b>모든 장비 상태·센서 값·이력은 데모 시뮬레이션 데이터</b>입니다. 실제 서비스에서는 장비별 IoT 게이트웨이·센서와 API 연동이 필요하며, 법정 배출·안전 기준 준수 여부는 반드시 소관 기관 기준으로 확인해야 합니다.</span>
+      <span><b>모든 장비 상태·센서 값·이력은 데모 시뮬레이션 데이터</b>입니다. 실제 서비스에서는 장비별 IoT 게이트웨이·센서와 API 연동이 필요하며, 법정 배출·안전 기준 준수 여부는 반드시 소관 기관 기준으로 확인해야 합니다. 그린링크 자동안내 설정법(위)은 실제 운영 절차를 요약한 참고 가이드입니다.</span>
     </div>
   </div>
 </section>
@@ -470,6 +561,21 @@
     });
   }
 
+  // daily self-check reminder (resets automatically each new day)
+  function initDailyCheck(){
+    var dateEl = $('todayDate');
+    var box = $('dailyCheckBox');
+    if(!dateEl || !box) return;
+    var today = new Date();
+    var key = 'iot-daily-check-' + today.toISOString().slice(0,10);
+    dateEl.textContent = (today.getMonth()+1) + '월 ' + today.getDate() + '일';
+    try { box.checked = window.localStorage.getItem(key) === '1'; } catch(e){}
+    box.addEventListener('change', function(){
+      try { window.localStorage.setItem(key, box.checked ? '1' : '0'); } catch(e){}
+      if(box.checked){ showToast('오늘자 실시간수신 자료조회 확인을 기록했습니다'); }
+    });
+  }
+
   // light "live" simulation: jitter one ok/check equipment's latest reading every few seconds
   function tickLive(){
     var candidates = EQUIPMENT.filter(function(e){ return e.status !== 'crit'; });
@@ -494,6 +600,7 @@
   renderAlerts();
   renderLog();
   initTierHighlight();
+  initDailyCheck();
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduceMotion){
