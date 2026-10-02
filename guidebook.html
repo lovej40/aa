@@ -1,7 +1,5 @@
 <title>지원금 가이드북</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
   :root{
     --bg:#FFFFFF;
@@ -18,8 +16,8 @@
     --text:#303030;
     --text-dim:#374151;
     --text-faint:#767676;
-    --font-display:"Noto Sans KR","Nanum Gothic",sans-serif,arial;
-    --font-mono:"Noto Sans KR","Nanum Gothic",sans-serif,arial;
+    --font-display:"Pretendard","Noto Sans KR","Nanum Gothic",sans-serif,arial;
+    --font-mono:"Pretendard","Noto Sans KR","Nanum Gothic",sans-serif,arial;
     --radius-sm:5px;
     --radius-md:9px;
     --radius-lg:12px;
@@ -109,7 +107,7 @@
   .footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.78rem;color:var(--text-faint);}
 
   @media (max-width:860px){
-    .book-layout{grid-template-columns:1fr;}
+    .book-layout{grid-template-columns:minmax(0,1fr);}
     .toc{position:static;border-left:none;padding-left:0;border-top:1px solid var(--border);padding-top:16px;}
     .wrap{padding:0 18px;}
   }
